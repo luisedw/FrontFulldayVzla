@@ -1,0 +1,24 @@
+.tour-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.tour-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+}
+
+.custom-card-img {
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.tour-card:hover .custom-card-img {
+  transform: scale(1.1);
+}
+
+.badge {
+  font-size: 1rem;
+  z-index: 10;
+}

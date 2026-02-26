@@ -1,0 +1,7 @@
+<div class="row g-4">
+    @for (item of misTours; track item.id) {
+        <div class="col-md-4">
+            <app-tour-card [tourData]="item"></app-tour-card>
+        </div>
+    }
+</div>

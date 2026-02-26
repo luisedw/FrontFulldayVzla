@@ -1,0 +1,47 @@
+.hero-section {
+  position: relative;
+  min-height: 85vh; /* Ocupa casi toda la pantalla inicial */
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
+              url('https://images.unsplash.com/photo-1590577976322-3d231871f9dd?q=80&w=2070&auto=format&fit=crop'); 
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Efecto Parallax suave */
+}
+
+/* Caja de búsqueda semi-transparente */
+.bg-white-transparent {
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.backdrop-blur {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.search-box {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.search-box input:focus {
+  box-shadow: none;
+  background-color: #f8f9fa;
+}
+
+.input-group-text {
+  font-size: 1.2rem;
+}
+
+h1 {
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  letter-spacing: -1px;
+}
+
+/* Animación simple */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate__animated {
+  animation: fadeInUp 1s ease-out;
+}

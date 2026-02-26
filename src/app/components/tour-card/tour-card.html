@@ -1,0 +1,28 @@
+<div class="card h-100 shadow-sm border-0 tour-card">
+  <div class="position-absolute top-0 start-0 m-3">
+    <span class="badge bg-info text-dark fw-bold px-3 py-2 rounded-pill shadow">
+      ${{ tourData.precio }} <small>/pers</small>
+    </span>
+  </div>
+
+  <img [src]="tourData.imagenUrl" 
+       class="card-img-top custom-card-img" 
+       [alt]="tourData.titulo">
+
+  <div class="card-body p-4">
+    <div class="d-flex justify-content-between mb-2">
+      <small class="text-info fw-bold text-uppercase">{{ tourData.destino }}</small>
+      <div class="text-warning">
+        <i class="bi bi-star-fill"></i> {{ tourData.puntuacion }}
+      </div>
+    </div>
+    
+    <h5 class="card-title fw-bold mb-3">{{ tourData.titulo }}</h5>
+    
+    <p class="card-text text-muted small mb-4">
+      {{ tourData.descripcion }}
+    </p>
+
+    <button class="btn btn-outline-primary w-100 fw-bold rounded-pill">Ver Detalles</button>
+  </div>
+</div>

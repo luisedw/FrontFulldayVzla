@@ -1,0 +1,21 @@
+footer {
+  background-color: #1a1a1a; /* Un negro un poco más suave que el puro */
+  border-top: 3px solid #0dcaf0; /* Línea de color info arriba */
+}
+
+footer p {
+  line-height: 1.7;
+  color: #bbb;
+}
+
+footer a {
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #0dcaf0 !important;
+}
+
+.bi {
+  vertical-align: middle;
+}

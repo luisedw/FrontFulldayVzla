@@ -1,0 +1,24 @@
+.navbar {
+  transition: all 0.3s ease;
+  padding: 15px 0;
+}
+
+.navbar-brand {
+  letter-spacing: 1px;
+}
+
+.nav-link {
+  font-weight: 500;
+  margin: 0 10px;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.nav-link:hover {
+  color: #0dcaf0 !important; /* Color info de Bootstrap */
+}
+
+/* Efecto para el botón de móvil cuando se abre */
+.navbar-toggler {
+  border: none;
+  outline: none;
+}

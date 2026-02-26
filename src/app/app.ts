@@ -1,12 +1,25 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+// Importa tus componentes recién creados
+import { NavbarComponent } from './components/navbar/navbar';
+import { HeroComponent } from './components/hero/hero';
+import { TourListComponent } from './components/tour-list/tour-list';
+import { FooterComponent } from './components/footer/footer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  // ¡IMPORTANTE! Debes incluirlos aquí para que funcionen en el HTML
+  imports: [
+    CommonModule, 
+    NavbarComponent, 
+    HeroComponent, 
+    TourListComponent, 
+    FooterComponent
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('FrontFulldayVzla');
+export class AppComponent {
+  title = 'FrontFulldayVzla';
 }
