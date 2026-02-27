@@ -23,6 +23,8 @@
       {{ tourData.descripcion }}
     </p>
 
-    <button class="btn btn-outline-primary w-100 fw-bold rounded-pill">Ver Detalles</button>
+  <a [routerLink]="['/tour', tourData.id]" class="btn btn-outline-primary w-100 fw-bold rounded-pill">
+  Ver Detalles
+</a>
   </div>
 </div>

@@ -5,6 +5,7 @@ import { NavbarComponent } from './components/navbar/navbar';
 import { HeroComponent } from './components/hero/hero';
 import { TourListComponent } from './components/tour-list/tour-list';
 import { FooterComponent } from './components/footer/footer';
+import { RouterModule } from '@angular/router'; // <--- 1. Importar esto
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ import { FooterComponent } from './components/footer/footer';
     NavbarComponent, 
     HeroComponent, 
     TourListComponent, 
-    FooterComponent
+    FooterComponent,
+    RouterModule
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'

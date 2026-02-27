@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TourCardComponent } from '../tour-card/tour-card';
 import { Tour } from '../../models/tour.model';
-
+import { TourService } from '../../services/tour'; // Importar el servicio
 @Component({
   selector: 'app-tour-list',
   standalone: true,
@@ -10,7 +10,7 @@ import { Tour } from '../../models/tour.model';
   templateUrl: './tour-list.html',
   styleUrl: './tour-list.css'
 })
-export class TourListComponent {
+export class TourListComponent implements OnInit{
   // Simulando el JSON que vendría de Spring Boot
   misTours: Tour[] = [
     {
@@ -43,5 +43,17 @@ export class TourListComponent {
       puntuacion: 4.8,
       servicios: ['bus', 'food', 'guide']
     }
-  ];
+  ]
+  // Inyectamos el servicio en el constructor (Como en Spring Boot)
+  constructor(private tourService: TourService) {}
+  ngOnInit(): void {
+    // Al iniciar, pedimos los tours
+    this.tourService.getToursLocal().subscribe({
+    next: (data: Tour[]) => { // <--- Agrega ': Tour[]'
+        this.misTours = data;
+      },
+      error: (err) => console.error('Error al cargar tours', err)
+      })
+  ;
+}
 }

@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core'; // Importamos Input
 import { Tour } from '../../models/tour.model';
+import { RouterModule } from '@angular/router'; // <--- 1. Importa esto
 
 @Component({
   selector: 'app-tour-card',
   standalone: true,
-  imports: [], 
+  imports: [RouterModule], // <--- 2. Agrégalo aquí
   templateUrl: './tour-card.html',
   styleUrl: './tour-card.css'
 })
