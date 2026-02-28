@@ -17,7 +17,7 @@ export class TourService {
       titulo: 'Cayo Sombrero Premium',
       precio: 45,
       descripcion: 'Transporte ejecutivo, desayuno, almuerzo y lancha rápida.',
-      imagenUrl: 'https://images.unsplash.com/photo-1628035153200-d32690f05814?w=600',
+      imagenUrl: 'assets/img/cayosombrero.jpg',
       puntuacion: 4.9,
       servicios: ['bus', 'food', 'water', 'guide']
     },
@@ -27,7 +27,7 @@ export class TourService {
       titulo: 'Los Caracas Relax',
       precio: 25,
       descripcion: 'Día de playa total con hidratación y transporte cómodo.',
-      imagenUrl: 'https://images.unsplash.com/photo-1590577976322-3d231871f9dd?w=600',
+      imagenUrl: 'assets/img/caracas.jpg',
       puntuacion: 4.5,
       servicios: ['bus', 'water']
     }

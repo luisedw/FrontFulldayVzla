@@ -12,49 +12,19 @@ import { TourService } from '../../services/tour'; // Importar el servicio
 })
 export class TourListComponent implements OnInit{
   // Simulando el JSON que vendría de Spring Boot
-  misTours: Tour[] = [
-    {
-      id: 1,
-      destino: 'Morrocoy',
-      titulo: 'Cayo Sombrero Premium',
-      precio: 45,
-      descripcion: 'Transporte ejecutivo, desayuno, almuerzo y lancha rápida.',
-      imagenUrl: 'https://images.unsplash.com/photo-1628035153200-d32690f05814?w=600',
-      puntuacion: 4.9,
-      servicios: ['bus', 'food', 'water', 'guide']
-    },
-    {
-      id: 2,
-      destino: 'La Guaira',
-      titulo: 'Los Caracas Relax',
-      precio: 25,
-      descripcion: 'Día de playa total con hidratación y transporte cómodo.',
-      imagenUrl: 'https://images.unsplash.com/photo-1590577976322-3d231871f9dd?w=600',
-      puntuacion: 4.5,
-      servicios: ['bus', 'water']
-    },
-    {
-      id: 3,
-      destino: 'Miranda',
-      titulo: 'Birongo y Tambores',
-      precio: 35,
-      descripcion: 'Ruta del chocolate y río con guía cultural incluido.',
-      imagenUrl: 'https://images.unsplash.com/photo-1589394815304-d6af7516cf60?w=600',
-      puntuacion: 4.8,
-      servicios: ['bus', 'food', 'guide']
-    }
-  ]
+  misTours: Tour[] = []
   // Inyectamos el servicio en el constructor (Como en Spring Boot)
   constructor(private tourService: TourService) {}
+
 ngOnInit(): void {
   // Al iniciar, pedimos los tours
-  this.tourService.getToursLocal().subscribe({
-    next: (data: Tour[]) => { // <-- Aquí agregamos ': Tour[]'
-      this.misTours = data;
-    },
-    error: (err: any) => { // <-- Aquí agregamos ': any'
-      console.error('Error al cargar tours', err);
-    }
-  });
+this.tourService.getToursLocal().subscribe({
+  next: (data: Tour[]) => { // <-- Importante el : Tour[]
+    this.misTours = data;
+  },
+  error: (err: any) => {    // <-- Importante el : any
+    console.error(err);
+  }
+});
 }
 }
