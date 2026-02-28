@@ -2,11 +2,34 @@
   position: relative;
   min-height: 85vh; /* Ocupa casi toda la pantalla inicial */
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
-              url('https://images.unsplash.com/photo-1590577976322-3d231871f9dd?q=80&w=2070&auto=format&fit=crop'); 
-  background-size: cover;
+              url('/assets/img/Logo.png'); 
+  background-size: cover; /* La imagen cubre todo el espacio */
+  height: 90vh; /* Ocupa el 90% del alto de la pantalla */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
   background-position: center;
   background-attachment: fixed; /* Efecto Parallax suave */
 }
+/* Opcional: Para darle un toque premium a los textos */
+.hero-section h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Sombra para resaltar */
+  margin-bottom: 20px;
+}
+.hero-section h1 span.text-info {
+  color: #0dcaf0 !important; /* Aseguramos el cian brillante */
+}
+.hero-section p.lead {
+  font-size: 1.25rem;
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+  opacity: 0.9;
+}
+
 
 /* Caja de búsqueda semi-transparente */
 .bg-white-transparent {

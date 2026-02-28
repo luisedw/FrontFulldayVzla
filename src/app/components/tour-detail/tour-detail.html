@@ -1,82 +1,87 @@
 <div class="container my-5 pt-5" *ngIf="tour">
-  <div class="row">
-    <div class="col-lg-8">
+  <div class="row g-4"> <div class="col-lg-8">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+          <li class="breadcrumb-item"><a routerLink="/" class="text-decoration-none text-info">Inicio</a></li>
           <li class="breadcrumb-item active">{{ tour.destino }}</li>
         </ol>
       </nav>
 
-      <h1 class="fw-bold mb-3">{{ tour.titulo }}</h1>
-      <p class="text-muted"><i class="bi bi-geo-alt-fill text-info"></i> {{ tour.destino }}, Venezuela</p>
+      <h1 class="fw-bold mb-2">{{ tour.titulo }}</h1>
+      <p class="text-muted mb-4">
+        <i class="bi bi-geo-alt-fill text-info"></i> {{ tour.destino }}, Venezuela
+      </p>
       
-      <img [src]="tour.imagenUrl" class="img-fluid rounded-4 shadow mb-4" [alt]="tour.titulo" style="width: 100%; height: 400px; object-fit: cover;">
+      <img [src]="tour.imagenUrl" 
+           class="img-fluid rounded-4 shadow-sm mb-4" 
+           [alt]="tour.titulo" 
+           style="width: 100%; height: 450px; object-fit: cover;">
 
-      <h3 class="fw-bold mt-4">Descripción del Viaje</h3>
-      <p class="lead text-muted">{{ tour.descripcion }}</p>
-      
-<div class="mt-5 p-5 bg-light rounded-4 shadow-sm">
-  <div class="d-flex align-items-center mb-4">
-    <div class="bg-primary text-white p-3 rounded-circle me-3">
-      <i class="bi bi-star-fill fs-3"></i>
-    </div>
-    <h3 class="fw-bold m-0">¿Qué incluye este Fullday?</h3>
-  </div>
+      <div class="mb-5">
+        <h3 class="fw-bold mb-3">Descripción del Viaje</h3>
+        <p class="lead text-muted" style="text-align: justify;">{{ tour.descripcion }}</p>
+      </div>
 
-  <div class="row row-cols-1 row-cols-md-2 g-4">
-    
-    <div class="col" *ngFor="let servicio of tour?.servicios">
-      <div class="card h-100 border-0 shadow-sm rounded-4 p-3 service-card">
-        <div class="d-flex align-items-center">
-          
-            <div class="flex-shrink-0 text-primary fs-4 me-3 p-2 bg-info bg-opacity-10 rounded-3" 
-                    style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
-                <i [class]="'bi ' + getServicioIcon(servicio)"></i>
+      <div class="p-4 bg-light rounded-4 shadow-sm">
+        <div class="d-flex align-items-center mb-4">
+          <div class="bg-info text-white p-2 rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+            <i class="bi bi-star-fill fs-6"></i>
           </div>
-          
-          <div>
-            <h5 class="fw-bold mb-1">{{ servicio | titlecase }}</h5>
-            <p class="text-muted small mb-0">Servicio incluido y garantizado.</p>
+          <h4 class="fw-bold m-0">¿Qué incluye este Fullday?</h4>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 g-3">
+          <div class="col" *ngFor="let servicio of tour?.servicios">
+            <div class="card h-100 border-0 shadow-sm rounded-3 p-2 service-card">
+              <div class="d-flex align-items-center">
+                <div class="flex-shrink-0 text-info fs-5 me-3 bg-white shadow-sm rounded-3 d-flex align-items-center justify-content-center" 
+                     style="width: 40px; height: 40px;">
+                  <i [class]="'bi ' + getServicioIcon(servicio)"></i>
+                </div>
+                <div>
+                  <h6 class="fw-bold mb-0 text-dark">{{ servicio | titlecase }}</h6>
+                  <small class="text-muted">Servicio Incluido</small>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-
-    <div class="col-lg-4">
-      <div class="card border-0 shadow-lg rounded-4 sticky-top" style="top: 100px;">
+    </div> <div class="col-lg-4">
+      <div class="card border-0 shadow-lg rounded-4 sticky-top" style="top: 100px; z-index: 10;">
         <div class="card-body p-4">
-          <h4 class="fw-bold mb-1">Precio por persona</h4>
+          <p class="text-muted mb-1">Precio por persona</p>
           <h2 class="text-info fw-bold mb-4">${{ tour.precio }} <small class="text-muted fs-6">USD</small></h2>
-          
-          <hr>
-          
+
+          <hr class="text-muted opacity-25">
+
           <div class="mb-3">
-<label class="form-label fw-bold">Fecha del viaje</label>
-    <input #fecha type="date" class="form-control form-control-lg">
+            <label class="form-label fw-bold small text-uppercase">Fecha del viaje</label>
+            <input #fecha type="date" class="form-control form-control-lg border-2">
           </div>
           
           <div class="mb-4">
-            <label class="form-label fw-bold">Cantidad de personas</label>
-            <select #personas class="form-select form-control-lg">
-            <option value="1">1 Persona</option>
-            <option value="2">2 Personas</option>
-            <option value="3">3 o más Personas</option>
+            <label class="form-label fw-bold small text-uppercase">Cantidad de personas</label>
+            <select #personas class="form-select form-control-lg border-2">
+              <option value="1">1 Persona</option>
+              <option value="2">2 Personas</option>
+              <option value="3">3 o más Personas</option>
             </select>
           </div>
 
           <button (click)="confirmarReserva(fecha.value, personas.value)" 
-          class="btn btn-info btn-lg w-100 fw-bold text-white shadow-sm">
-          RESERVAR AHORA
+                  class="btn btn-info btn-lg w-100 fw-bold text-white shadow-sm py-3 mb-3">
+            RESERVAR AHORA
           </button>
           
-          <p class="text-center mt-3 small text-muted">
-            <i class="bi bi-shield-lock-fill"></i> Pago seguro y garantizado
-          </p>
+          <div class="text-center">
+            <span class="badge bg-success bg-opacity-10 text-success p-2">
+              <i class="bi bi-shield-lock-fill me-1"></i> Pago seguro
+            </span>
+            <p class="mt-3 small text-muted">No se realizará ningún cargo aún</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+
+  </div> </div> ```
