@@ -14,8 +14,6 @@ import { RouterModule } from '@angular/router'; // <--- 1. Importar esto
   imports: [
     CommonModule, 
     NavbarComponent, 
-    HeroComponent, 
-    TourListComponent, 
     FooterComponent,
     RouterModule
   ],

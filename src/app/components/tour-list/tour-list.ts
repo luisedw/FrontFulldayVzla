@@ -46,14 +46,15 @@ export class TourListComponent implements OnInit{
   ]
   // Inyectamos el servicio en el constructor (Como en Spring Boot)
   constructor(private tourService: TourService) {}
-  ngOnInit(): void {
-    // Al iniciar, pedimos los tours
-    this.tourService.getToursLocal().subscribe({
-    next: (data: Tour[]) => { // <--- Agrega ': Tour[]'
-        this.misTours = data;
-      },
-      error: (err) => console.error('Error al cargar tours', err)
-      })
-  ;
+ngOnInit(): void {
+  // Al iniciar, pedimos los tours
+  this.tourService.getToursLocal().subscribe({
+    next: (data: Tour[]) => { // <-- Aquí agregamos ': Tour[]'
+      this.misTours = data;
+    },
+    error: (err: any) => { // <-- Aquí agregamos ': any'
+      console.error('Error al cargar tours', err);
+    }
+  });
 }
 }

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { HeroComponent } from '../hero/hero'; // Ajusta la ruta si es necesario
+import { TourListComponent } from '../tour-list/tour-list';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  standalone: true,
+  imports: [HeroComponent, TourListComponent], // <--- Registramos los componentes aquí
   templateUrl: './home.html',
-  styleUrl: './home.css',
+  styleUrl: './home.css'
 })
-export class Home {
-
-}
+export class HomeComponent { }

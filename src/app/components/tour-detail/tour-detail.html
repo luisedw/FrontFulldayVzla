@@ -1,1 +1,62 @@
-<p>tour-detail works!</p>
+<div class="container my-5 pt-5" *ngIf="tour">
+  <div class="row">
+    <div class="col-lg-8">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+          <li class="breadcrumb-item active">{{ tour.destino }}</li>
+        </ol>
+      </nav>
+
+      <h1 class="fw-bold mb-3">{{ tour.titulo }}</h1>
+      <p class="text-muted"><i class="bi bi-geo-alt-fill text-info"></i> {{ tour.destino }}, Venezuela</p>
+      
+      <img [src]="tour.imagenUrl" class="img-fluid rounded-4 shadow mb-4" [alt]="tour.titulo" style="width: 100%; height: 400px; object-fit: cover;">
+
+      <h3 class="fw-bold mt-4">Descripción del Viaje</h3>
+      <p class="lead text-muted">{{ tour.descripcion }}</p>
+      
+      <div class="mt-4 p-4 bg-light rounded-4">
+        <h5 class="fw-bold mb-3">¿Qué incluye este Fullday?</h5>
+        <div class="row">
+          <div class="col-md-6 mb-2" *ngFor="let servicio of tour.servicios">
+            <i class="bi bi-check-circle-fill text-success me-2"></i> {{ servicio | titlecase }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-lg rounded-4 sticky-top" style="top: 100px;">
+        <div class="card-body p-4">
+          <h4 class="fw-bold mb-1">Precio por persona</h4>
+          <h2 class="text-info fw-bold mb-4">${{ tour.precio }} <small class="text-muted fs-6">USD</small></h2>
+          
+          <hr>
+          
+          <div class="mb-3">
+            <label class="form-label fw-bold">Fecha del viaje</label>
+            <input type="date" class="form-control form-control-lg">
+          </div>
+          
+          <div class="mb-4">
+            <label class="form-label fw-bold">Cantidad de personas</label>
+            <select class="form-select form-control-lg">
+              <option>1 Persona</option>
+              <option>2 Personas</option>
+              <option>3+ Personas</option>
+            </select>
+          </div>
+
+          <button class="btn btn-info btn-lg w-100 fw-bold text-white shadow">
+            RESERVAR AHORA
+          </button>
+          
+          <p class="text-center mt-3 small text-muted">
+            <i class="bi bi-shield-lock-fill"></i> Pago seguro y garantizado
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
