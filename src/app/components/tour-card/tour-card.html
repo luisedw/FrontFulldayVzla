@@ -5,7 +5,10 @@
     </span>
   </div>
 
-<img [src]="tourData.imagenUrl" class="card-img-top" [alt]="tourData.titulo">
+  <img [src]="tourData.imagenUrl" 
+       class="card-img-top custom-card-img" 
+       [alt]="tourData.titulo">
+
   <div class="card-body p-4">
     <div class="d-flex justify-content-between mb-2">
       <small class="text-info fw-bold text-uppercase">{{ tourData.destino }}</small>

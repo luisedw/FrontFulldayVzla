@@ -1,0 +1,49 @@
+.card {
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.05) !important;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.btn-info {
+  background: linear-gradient(45deg, #0dcaf0, #0097b2);
+  border: none;
+}
+
+.sticky-top {
+  z-index: 10; /* Para que no se solape con el navbar al hacer scroll */
+}
+
+/* ... estilos que ya tienes */
+
+.service-card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.02) !important;
+  padding: 12px !important; /* Menos relleno interno */
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(13, 202, 240, 0.2) !important;
+  background-color: #fbfdff;
+}
+
+.service-card h5 {
+  font-size: 1rem; /* Título un poco más pequeño */
+  margin-bottom: 0;
+}
+
+.service-card p {
+  font-size: 0.8rem; /* Texto descriptivo más pequeño */
+}
+
+/* Efecto para el contenedor del icono */
+.bg-info.bg-opacity-10 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+}

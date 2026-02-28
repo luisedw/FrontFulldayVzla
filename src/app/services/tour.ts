@@ -17,7 +17,7 @@ export class TourService {
       titulo: 'Cayo Sombrero Premium',
       precio: 45,
       descripcion: 'Transporte ejecutivo, desayuno, almuerzo y lancha rápida.',
-      imagenUrl: 'assets/img/cayosombrero.jpg',
+      imagenUrl: 'assets/img/CayoSombrero.jpg',
       puntuacion: 4.9,
       servicios: ['bus', 'food', 'water', 'guide']
     },
