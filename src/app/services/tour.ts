@@ -19,7 +19,12 @@ export class TourService {
       descripcion: 'Transporte ejecutivo, desayuno, almuerzo y lancha rápida.',
       imagenUrl: 'assets/img/CayoSombrero.jpg',
       puntuacion: 4.9,
-      servicios: ['bus', 'food', 'water', 'guide']
+      servicios: ['bus', 'food', 'water', 'guide'],
+      galeria: [
+    'assets/img/morrocoy-1.jpg',
+    'assets/img/morrocoy-2.jpg',
+    'assets/img/morrocoy-3.jpg'
+  ]
     },
     {
       id: 2,
@@ -29,7 +34,12 @@ export class TourService {
       descripcion: 'Día de playa total con hidratación y transporte cómodo.',
       imagenUrl: 'assets/img/caracas.jpg',
       puntuacion: 4.5,
-      servicios: ['bus', 'water']
+      servicios: ['bus', 'water'],
+      galeria: [
+    'assets/img/morrocoy-1.jpg',
+    'assets/img/morrocoy-2.jpg',
+    'assets/img/morrocoy-3.jpg'
+  ]
     }
   ];
 

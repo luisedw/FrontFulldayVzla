@@ -7,4 +7,5 @@ export interface Tour {
   imagenUrl: string;
   puntuacion: number;
   servicios: string[]; // ['bus', 'food', 'water', 'guide']
+  galeria?: string[]; // Un array de rutas de imágenes
 }
