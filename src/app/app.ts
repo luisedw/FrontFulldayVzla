@@ -1,24 +1,21 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// Importa tus componentes recién creados
+
+// Importa tus componentes
 import { NavbarComponent } from './components/navbar/navbar';
-import { HeroComponent } from './components/hero/hero';
-import { TourListComponent } from './components/tour-list/tour-list';
 import { FooterComponent } from './components/footer/footer';
-import { RouterModule } from '@angular/router'; // <--- 1. Importar esto
-import { AppRoutingModule } from './app.routes';
+
+// 1. CAMBIA ESTA LÍNEA: Importa solo RouterOutlet, no RouterModule
+import { RouterOutlet } from '@angular/router'; 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  // ¡IMPORTANTE! Debes incluirlos aquí para que funcionen en el HTML
   imports: [
     CommonModule, 
     NavbarComponent, 
     FooterComponent,
-    RouterModule,
-
-    
+    RouterOutlet // 2. CAMBIA ESTA LÍNEA TAMBIÉN: Deja solo RouterOutlet
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'

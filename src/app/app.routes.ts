@@ -7,19 +7,18 @@ import { LoginComponent } from './components/login/login';
 import { FormsModule } from '@angular/forms'; // <--- Importante
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
-  { path: '', component: HomeComponent},
-// Agregamos la ruta que recibe un parámetro ':id'
+// 1. Ruta principal (Home)
+  { path: '', component: HomeComponent },
+
+  // 2. Rutas específicas de tu aplicación
   { path: 'tour/:id', component: TourDetail },
-  { path: '**', redirectTo: '' },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
+
+  // 3. Ruta comodín (SIEMPRE al final de todo)
+  // Si el usuario escribe cualquier cosa loca en la URL, lo mandamos al Home
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes),
-    FormsModule
-  ],
-  exports: [RouterModule]
-})
+
 export class AppRoutingModule { }

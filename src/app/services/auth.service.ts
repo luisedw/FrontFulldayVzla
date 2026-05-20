@@ -28,7 +28,7 @@ export class AuthService {
 
   // Servicio de Login (Llama al JSON de Postman)
   login(credentials: any): Observable<any> {
-    return this.http.post<any>(`${this.authUrl}login/`, credentials).pipe(
+    return this.http.post<any>(`${this.authUrl}`, credentials).pipe(
       tap(res => {
         if (res && res.access) {
           localStorage.setItem('access_token', res.access);

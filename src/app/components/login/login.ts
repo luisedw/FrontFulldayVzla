@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [
-    FormsModule
+    FormsModule,
+    CommonModule, // <--- 3. Agrégalo aquí para habilitar *ngIf
+    RouterLink
   ],
   templateUrl: './login.html',
   styleUrl: './login.css',
