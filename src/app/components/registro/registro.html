@@ -10,31 +10,27 @@
           <form (ngSubmit)="onRegister()">
             <div class="mb-3">
               <label class="form-label text-secondary small">Nombre de Usuario</label>
-              <input type="email" name="email" [(ngModel)]="userData.username" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="tu@correo.com">
+              <input type="text" name="username" [(ngModel)]="userData.username" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="ejemplo Martinez77">
             </div>
 
-            <div class="mb-4">
-              <label class="form-label text-secondary small">Correo</label>
-              <input type="password" name="password" [(ngModel)]="userData.email" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="••••••••">
+            <div class="mb-3">
+              <label class="form-label text-secondary small">Correo Electrónico</label>
+              <input type="email" name="email" [(ngModel)]="userData.email" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="tucorreo@gmail.com">
             </div>
 
-            <div class="mb-5">
+            <div class="mb-3">
               <label class="form-label text-secondary small">Contraseña</label>
               <input type="password" name="password" [(ngModel)]="userData.password" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="••••••••">
             </div>
 
-            <div class="mb-6">
+            <div class="mb-3">
               <label class="form-label text-secondary small">Confirmar Contraseña</label>
               <input type="password" name="password_confirm" [(ngModel)]="userData.password_confirm" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="••••••••">
             </div>
 
             <button type="submit" class="btn btn-info text-dark w-100 rounded-pill fw-bold py-2 mb-3">
-              Ingresar
+              Registrarse
             </button>
-            
-            <p class="text-center small text-secondary mb-0">
-              ¿No tienes cuenta? <a routerLink="/registro" class="text-info text-decoration-none">Regístrate aquí</a>
-            </p>
           </form>
         </div>
       </div>

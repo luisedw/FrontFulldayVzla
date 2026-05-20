@@ -29,10 +29,12 @@ export class AuthService {
   // Servicio de Login (Llama al JSON de Postman)
   login(credentials: any): Observable<any> {
     return this.http.post<any>(`${this.authUrl}`, credentials).pipe(
-      tap(res => {
-        if (res && res.access) {
-          localStorage.setItem('access_token', res.access);
-          localStorage.setItem('refresh_token', res.refresh);
+      tap(response => {
+        if (response && response.access) {
+          localStorage.setItem('access_token', response.access);
+          localStorage.setItem('refresh_token', response.refresh);
+         // Guardar los datos del usuario transformados en String
+          localStorage.setItem('user_data', JSON.stringify(response.user));
           this.loggedIn.next(true); // Cambia el estado a conectado
         }
       })
@@ -48,6 +50,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
+    localStorage.removeItem('user_data');
     this.loggedIn.next(false); // Cambia el estado a desconectado
   }
 }
