@@ -1,20 +1,31 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { catchError, throwError } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  // 1. Buscamos el access_token que guardamos en el login
+  const authService = inject(AuthService);
   const token = localStorage.getItem('access_token');
 
-  // 2. Si el token existe, clonamos la petición y le inyectamos el Bearer token
+  // Clonamos la petición para inyectar el Token si existe
+  let clonedReq = req;
   if (token) {
-    const clonedRequest = req.clone({
+    clonedReq = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`
       }
     });
-    // Pasamos la petición clonada con el token
-    return next(clonedRequest);
   }
 
-  // 3. Si no hay token (como en el Login o Registro), la petición sigue su curso normal
-  return next(req);
+  // Procesamos la petición y vigilamos si ocurre un error de autenticación
+  return next(clonedReq).pipe(
+    catchError((error: HttpErrorResponse) => {
+      // 💡 Si el código es 401, el backend rechazó el token por viejo o inválido
+      if (error.status === 401) {
+        console.error('Petición rechazada (401 Unauthorized). Forzando cierre de sesión...');
+        authService.logout(); 
+      }
+      return throwError(() => error);
+    })
+  );
 };

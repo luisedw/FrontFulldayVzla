@@ -1,0 +1,14 @@
+/* src/app/components/destinos/destinos.component.css */
+
+.modal {
+  z-index: 1060 !important; /* Por encima del Navbar que suele tener 1030 o 1050 */
+}
+
+.modal-dialog {
+  max-width: 750px;
+}
+
+/* Efecto de justificación limpio para las descripciones largas */
+.text-justify {
+  text-align: justify;
+}
