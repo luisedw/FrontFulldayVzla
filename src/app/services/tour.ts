@@ -1,59 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; // Para el futuro
-import { Observable, of } from 'rxjs';
-import { Tour } from '../models/tour.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TourService {
-  // Tu URL de Spring Boot (Cámbiala según tu puerto)
-  private apiUrl = 'http://localhost:8080/api/tours'; 
-
-  private toursEjemplo: Tour[] = [
-    {
-      id: 1,
-      destino: 'Morrocoy',
-      titulo: 'Cayo Sombrero Premium',
-      precio: 45,
-      descripcion: 'Transporte ejecutivo, desayuno, almuerzo y lancha rápida.',
-      imagenUrl: 'assets/img/CayoSombrero.jpg',
-      puntuacion: 4.9,
-      servicios: ['bus', 'food', 'water', 'guide'],
-      galeria: [
-    'assets/img/morrocoy-1.jpg',
-    'assets/img/morrocoy-2.jpg',
-    'assets/img/morrocoy-3.jpg'
-  ]
-    },
-    {
-      id: 2,
-      destino: 'La Guaira',
-      titulo: 'Los Caracas Relax',
-      precio: 25,
-      descripcion: 'Día de playa total con hidratación y transporte cómodo.',
-      imagenUrl: 'assets/img/caracas.jpg',
-      puntuacion: 4.5,
-      servicios: ['bus', 'water'],
-      galeria: [
-    'assets/img/morrocoy-1.jpg',
-    'assets/img/morrocoy-2.jpg',
-    'assets/img/morrocoy-3.jpg'
-  ]
-    }
-  ];
+  // 💡 IMPORTANTE: Deja la URL sin barra '/' al final para evitar la doble barra
+  private apiUrl = 'http://127.0.0.1:8000/api/destinos-turisticos'; 
 
   constructor(private http: HttpClient) { }
 
-  // Método que usaremos ahora (simulado)
-  getToursLocal(): Observable<Tour[]> {
-    return of(this.toursEjemplo);
+  getToursRemote(): Observable<any> {
+    return this.http.get<any>(this.apiUrl);
   }
 
-  // Método que usaremos con Spring Boot
-  getToursRemote(): Observable<Tour[]> {
-    return this.http.get<Tour[]>(this.apiUrl);
+  getTourByIdRemote(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 }
-
-

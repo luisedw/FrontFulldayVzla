@@ -24,7 +24,10 @@ export class RegistroComponent {
     username: '',
     email: '',
     password: '',
-    password_confirm: ''
+    password_confirm: '',
+    first_name: '',
+    last_name: '',
+    cedula: ''
   };
 
   constructor(private authService: AuthService, private router: Router) {}
