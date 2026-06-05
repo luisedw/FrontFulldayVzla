@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +12,15 @@ export class AuthService {
   private registerUrl = 'http://127.0.0.1:8000/api/auth/register/'; 
   //private authUrl = 'http://127.0.0.1:8000/api/auth/';
   //private registerUrl = 'http://127.0.0.1:8000/api/clientes/'; 
-
+  private logoutTimer: any = null; // 💡 Inicializado en null explícitamente
   // Un BehaviorSubject nos permite notificar a toda la app (como al navbar) si el estado cambia
   private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
 
   constructor(
     private http: HttpClient,
-    private logoutTimer: any,// 💡 Guardará la referencia del temporizador
-    private router = inject(Router)
+    //private logoutTimer: any,// 💡 Guardará la referencia del temporizador
+    //private router = inject(Router)
+    private router: Router
   ) {}
 
   private hasToken(): boolean {
