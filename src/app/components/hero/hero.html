@@ -14,7 +14,11 @@
             <div class="col-md-5">
               <div class="input-group">
                 <span class="input-group-text bg-transparent border-0"><i class="bi bi-geo-alt text-info"></i></span>
-                <input type="text" class="form-control border-0" placeholder="¿A qué playa o montaña vamos?">
+                <!-- 💡 Agregamos #txtBusqueda y el evento Enter -->
+                <input type="text" #txtBusqueda 
+                       class="form-control border-0" 
+                       placeholder="¿A qué playa o montaña vamos?"
+                       (keyup.enter)="ejecutarBusqueda(txtBusqueda.value)">
               </div>
             </div>
             <div class="col-md-4">
@@ -24,7 +28,9 @@
               </div>
             </div>
             <div class="col-md-3">
-              <button class="btn btn-info w-100 py-3 rounded-3 fw-bold text-white text-uppercase shadow">
+              <!-- 💡 Agregamos el evento Click -->
+              <button (click)="ejecutarBusqueda(txtBusqueda.value)" 
+                      class="btn btn-info w-100 py-3 rounded-3 fw-bold text-white text-uppercase shadow">
                 Buscar Tour
               </button>
             </div>

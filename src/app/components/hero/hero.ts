@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TourService } from '../../services/tour'; // 💡 Ajusta la ruta si es necesario
 
 @Component({
   selector: 'app-hero',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
   templateUrl: './hero.html',
   styleUrl: './hero.css'
 })
-export class HeroComponent {}
+export class HeroComponent {
+  
+  constructor(private tourService: TourService) {} // 💡 Inyectamos el servicio
+
+  ejecutarBusqueda(valor: string) {
+    this.tourService.setFiltro(valor); // Enviamos el string al canal del servicio
+  }
+}
