@@ -1,52 +1,76 @@
 <div class="container my-5">
   <div class="row justify-content-center">
-    <div class="col-md-5">
+    <!-- Subimos a col-md-7 para que las columnas en paralelo tengan buen espacio -->
+    <div class="col-md-7">
       <div class="card bg-dark text-white shadow-lg rounded-4 border-secondary">
         <div class="card-body p-5">
           <h2 class="fw-bold mb-4 text-center"><span class="text-info">Registro</span></h2>
-          
-       
 
           <form (ngSubmit)="onRegister()">
-            <div class="mb-3">
-              <label class="form-label text-secondary small">Usuario</label>
-              <input type="text" name="username" [(ngModel)]="userData.username" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="ejemplo Martinez77">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label text-secondary small">Correo Electrónico</label>
-              <input type="email" name="email" [(ngModel)]="userData.email" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="tucorreo@gmail.com">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label text-secondary small">Contraseña</label>
-              <input type="password" name="password" [(ngModel)]="userData.password" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="••••••••">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label text-secondary small">Confirmar Contraseña</label>
-              <input type="password" name="password_confirm" [(ngModel)]="userData.password_confirm" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="••••••••">
-            </div>
-
             
-            <div class="mb-3">
-              <label class="form-label text-secondary small">Primer nombre</label>
-              <input type="text" name="first_name" [(ngModel)]="userData.first_name" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="">
+            <!-- Grupo: Usuario y Correo -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label text-secondary small">Usuario</label>
+                <input type="text" name="username" [(ngModel)]="userData.username" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="ejemplo Martinez77">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label text-secondary small">Correo Electrónico</label>
+                <input type="email" name="email" [(ngModel)]="userData.email" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="tucorreo@gmail.com">
+              </div>
             </div>
 
-            
-            <div class="mb-3">
-              <label class="form-label text-secondary small">Primer apellido</label>
-              <input type="text" name="last_name" [(ngModel)]="userData.last_name" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="">
-            </div>
-                  
-            <div class="mb-3">
-              <label class="form-label text-secondary small">Cedúla</label>
-              <input type="text" name="cedula" [(ngModel)]="userData.cedula" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="">
+            <!-- Grupo: Contraseñas -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label text-secondary small">Contraseña</label>
+                <input type="password" name="password" [(ngModel)]="userData.password" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="••••••••">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label text-secondary small">Confirmar Contraseña</label>
+                <input type="password" name="password_confirm" [(ngModel)]="userData.password_confirm" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="••••••••">
+              </div>
             </div>
 
+            <hr class="border-secondary my-4">
 
-            <button type="submit" class="btn btn-info text-dark w-100 rounded-pill fw-bold py-2 mb-3">
+            <!-- Grupo: Nombres -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label text-secondary small">Primer Nombre</label>
+                <input type="text" name="primer_nombre" [(ngModel)]="userData.primer_nombre" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="Alana">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label text-secondary small">Segundo Nombre</label>
+                <input type="text" name="segundo_nombre" [(ngModel)]="userData.segundo_nombre" class="form-control bg-secondary text-white border-0 rounded-pill px-3" placeholder="Opcional">
+              </div>
+            </div>
+
+            <!-- Grupo: Apellidos -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label text-secondary small">Primer Apellido</label>
+                <input type="text" name="primer_apellido" [(ngModel)]="userData.primer_apellido" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="Bloom">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label text-secondary small">Segundo Apellido</label>
+                <input type="text" name="segundo_apellido" [(ngModel)]="userData.segundo_apellido" class="form-control bg-secondary text-white border-0 rounded-pill px-3" placeholder="Casas">
+              </div>
+            </div>
+
+            <!-- Grupo: Cédula y Teléfono -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label text-secondary small">Cédula</label>
+                <input type="text" name="cedula" [(ngModel)]="userData.cedula" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="V-28999888">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label text-secondary small">Teléfono</label>
+                <input type="text" name="telefono" [(ngModel)]="userData.telefono" class="form-control bg-secondary text-white border-0 rounded-pill px-3" required placeholder="04249876543">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-info text-dark w-100 rounded-pill fw-bold py-2 mt-4 mb-3">
               Registrarse
             </button>
           </form>
