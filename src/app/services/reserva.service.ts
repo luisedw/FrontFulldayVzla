@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+// 💡 Modificamos el contrato para reflejar tu JSON real
 export interface ReservaPayload {
   pago_id: string;
   paquete_id: number;
-  cedula: string;
+  cliente_id: number; // 👈 ¡Ahora es el ID del usuario!
   cantidad_personas: number;
   estatus_id: number;
-  fecha: string; // Lo dejamos opcional para cuando tu compañero lo active
+  fecha: string; 
 }
 
 @Injectable({

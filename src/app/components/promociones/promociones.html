@@ -1,0 +1,85 @@
+<div class="container my-5 pt-4">
+  <!-- Cabecera de la Sección -->
+  <div class="text-center mb-5">
+    <h2 class="fw-bold text-dark">Promociones Especiales</h2>
+    <p class="text-muted mx-auto" style="max-width: 600px;">
+      Explora nuestros paquetes turísticos diseñados para ofrecerte la mejor experiencia con todo incluido. ¡Reserva hoy mismo tu próximo destino!
+    </p>
+    <div class="linea-decorativa mx-auto"></div>
+  </div>
+
+  <!-- Spinner de carga -->
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-info" role="status">
+      <span class="visually-hidden">Cargando paquetes...</span>
+    </div>
+  </div>
+
+  <!-- Grid de Tarjetas -->
+  <div *ngIf="!loading" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="col" *ngFor="let paquete of listaPaquetes">
+      <div class="card h-100 card-paquete border-0 shadow-sm position-relative">
+        
+        <!-- Etiqueta Flotante (Tipo de Paquete) -->
+        <span class="badge position-absolute top-0 start-0 m-3 badge-categoria px-3 py-2 fs-7 shadow-sm">
+          {{ paquete.tipo_paquete.nombre }}
+        </span>
+
+        <!-- Imagen de Portada -->
+        <div class="contenedor-img">
+          <img [src]="getFormatedImage(paquete.imagen_principal)" 
+               class="card-img-top img-paquete" 
+               [alt]="paquete.nombre">
+        </div>
+
+        <!-- Cuerpo de la Tarjeta -->
+        <div class="card-body d-flex flex-column p-4">
+          <!-- Destino Base -->
+          <span class="text-info text-uppercase fw-bold tracking-wider fs-7 mb-1">
+            <i class="bi bi-geo-alt-fill me-1"></i>{{ paquete.destino.nombre }}
+          </span>
+          
+          <!-- Nombre del Paquete -->
+          <h5 class="card-title fw-bold text-dark mb-2 text-limit-2">
+            {{ paquete.nombre }}
+          </h5>
+          
+          <!-- Descripción Corta -->
+          <p class="card-text text-muted small text-limit-3 mb-4">
+            {{ paquete.descripcion }}
+          </p>
+
+          <!-- Detalles Claves (Días, Capacidad, Fechas) -->
+          <div class="mt-auto border-top pt-3 bg-light-details p-3 rounded-3 mb-3">
+            <div class="row g-2 text-muted small">
+              <div class="col-6">
+                <i class="bi bi-clock-history text-info me-2"></i><b>Duración:</b> {{ paquete.duracion_dias }} días
+              </div>
+              <div class="col-6">
+                <i class="bi bi-people-fill text-info me-2"></i><b>Cupos:</b> {{ paquete.capacidad_maxima_integrantes }} máx.
+              </div>
+              <div class="col-12 mt-2">
+                <i class="bi bi-calendar-event-fill text-info me-2"></i>
+                <span>{{ paquete.fecha_inico | date:'dd MMM' }} al {{ paquete.fecha_fin | date:'dd MMM, yyyy' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fila de Precio y Acción -->
+          <div class="d-flex align-items-center justify-content-between mt-2">
+            <div>
+              <small class="text-muted d-block fs-8 text-uppercase">Precio Base</small>
+              <span class="fs-4 fw-black text-dark">Bs. {{ paquete.precio_base_bs | number:'1.2-2' }}</span>
+            </div>
+            
+            <!-- Botón Dinámico hacia el detalle de tu ruta -->
+            <a [routerLink]="['/tour', paquete.id]" class="btn btn-action px-4 py-2 fw-bold text-white shadow-sm">
+              Ver Detalles <i class="bi bi-arrow-right-short ms-1"></i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

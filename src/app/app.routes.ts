@@ -5,6 +5,7 @@ import { TourDetail } from './components/tour-detail/tour-detail';
 import { RegistroComponent } from './components/registro/registro';
 import { LoginComponent } from './components/login/login';
 import { FormsModule } from '@angular/forms'; // <--- Importante
+import { PromocionesComponent } from './components/promociones/promociones';
 
 export const routes: Routes = [
 // 1. Ruta principal (Home)
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'destinos', loadComponent: () => import('./components/destinos/destinos.component').then(m => m.DestinosComponent) },
+  { path: 'promociones', component: PromocionesComponent },
 
   // 3. Ruta comodín (SIEMPRE al final de todo)
   // Si el usuario escribe cualquier cosa loca en la URL, lo mandamos al Home

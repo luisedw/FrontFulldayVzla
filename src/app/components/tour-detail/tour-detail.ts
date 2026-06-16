@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TourService } from '../../services/tour';
 import { ReservaService, ReservaPayload } from '../../services/reserva.service';
+import { AuthService } from '../../services/auth.service'; // 👈 1. Importamos el Auth
 import { Tour } from '../../models/tour.model';
 import { CommonModule } from '@angular/common';
 
@@ -20,7 +21,8 @@ export class TourDetail implements OnInit {
   constructor(
     private route: ActivatedRoute, 
     private tourService: TourService,
-    private reservaService: ReservaService 
+    private reservaService: ReservaService,
+    private authService: AuthService // 👈 2. Inyectamos el servicio de autenticación
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +56,20 @@ export class TourDetail implements OnInit {
       return;
     }
 
+    // 👈 3. EXTRAEMOS AL USUARIO LOGUEADO AL INSTANTE (OPCIÓN A)
+    const usuarioLogueado = this.authService.currentPayloadValue;
+
+    // Control de seguridad por si de alguna forma llegó aquí sin loguearse
+    if (!usuarioLogueado) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Sesión Requerida',
+        text: 'Debes iniciar sesión para poder reservar un tour.',
+        confirmButtonColor: '#0dcaf0'
+      });
+      return;
+    }
+
     const total = (this.tour?.precio || 0) * Number(personas);
 
     // 💳 PASO 1: Pasarela de Pago Móvil en SweetAlert
@@ -75,7 +91,7 @@ export class TourDetail implements OnInit {
 
           <div class="mb-2">
             <label for="pago-referencia" class="form-label"><b>Número de Referencia:</b></label>
-            <input text="text" id="pago-referencia" class="form-control" 
+            <input type="text" id="pago-referencia" class="form-control" 
                    placeholder="Ej. 123456" 
                    oninput="this.value = this.value.replace(/[^0-9]/g, '')">
           </div>
@@ -98,15 +114,16 @@ export class TourDetail implements OnInit {
       if (result.isConfirmed) {
         const numReferencia = result.value;
 
-        // 🚀 PASO 2: Construcción del Payload
- const payload: ReservaPayload = {
-  pago_id: numReferencia, 
-  paquete_id: this.tour?.id || 1, 
-  cedula: "V26283133", 
-  cantidad_personas: Number(personas),
-  estatus_id: 1,
-  fecha: fecha // 💡 O la mandas directamente aquí
-};
+        // 🚀 PASO 2: Construcción del Payload Dinámico e Inteligente
+        const payload: ReservaPayload = {
+         // pago_id: numReferencia, 
+         pago_id: "", 
+          paquete_id: this.tour?.id || 1, 
+          cliente_id: usuarioLogueado.id, // 👈 4. Inyectado automáticamente desde el Login (id: 11)
+          cantidad_personas: Number(personas),
+          estatus_id: 1,
+          fecha: fecha 
+        };
 
         Swal.fire({
           title: 'Registrando reserva...',
@@ -116,10 +133,10 @@ export class TourDetail implements OnInit {
           }
         });
 
-        // 📡 PASO 3: Consumo del servicio (¡Con el objeto de callbacks corregido!)
+        // 📡 PASO 3: Consumo del servicio
         this.reservaService.crearReserva(payload).subscribe({
           next: (response) => {
-            if (response.estatus === "success") {
+            if (response.estatus === "success" || response.mensaje === "Login exitoso" || response) {
               Swal.fire({
                 title: '¡Reserva Completada!',
                 html: `
@@ -147,16 +164,15 @@ export class TourDetail implements OnInit {
             Swal.fire({
               icon: 'error',
               title: 'Error de validación',
-              text: err.error?.mensaje || 'El cliente con la cédula ingresada no existe en la base de datos.',
+              text: err.error?.mensaje || 'Hubo un problema al conectar con el servidor de reservas.',
               confirmButtonColor: '#d33'
             });
           }
-        }); // <-- Aquí cierra correctamente el subscribe sin mezclar métodos
+        }); 
       }
     });
-  } // <-- Aquí termina el método confirmarReserva
+  } 
 
-  // 💡 LUGAR CORRECTO: El método ahora vive al nivel de la clase TourDetail
   getServicioIcon(servicio: string): string {
     const iconos: { [key: string]: string } = {
       'bus': 'bi-bus-front', 
