@@ -17,6 +17,7 @@ export const routes: Routes = [
   { path: 'registro', component: RegistroComponent },
   { path: 'destinos', loadComponent: () => import('./components/destinos/destinos.component').then(m => m.DestinosComponent) },
   { path: 'promociones', component: PromocionesComponent },
+  {path: 'perfil', loadComponent: () => import('./components/perfil/perfil.component').then(m => m.PerfilComponent)},
 
   // 3. Ruta comodín (SIEMPRE al final de todo)
   // Si el usuario escribe cualquier cosa loca en la URL, lo mandamos al Home

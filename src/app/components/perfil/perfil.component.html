@@ -1,0 +1,80 @@
+<div class="container my-5 pt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      
+      <div *ngIf="loading && perfilForm.invalid" class="text-center my-5">
+        <div class="spinner-border text-info" role="status"></div>
+      </div>
+
+      <div class="card border-0 shadow-sm profile-card" *ngIf="!loading || perfilForm.valid">
+        
+        <div class="profile-header text-center p-4 text-white">
+          <div class="avatar-circle mx-auto mb-3 shadow">
+            <i class="bi bi-person-fill fs-1"></i>
+          </div>
+          <h3 class="fw-bold mb-0 text-capitalize">
+            {{ perfilForm.get('primer_nombre')?.value }} {{ perfilForm.get('primer_apellido')?.value }}
+          </h3>
+          <p class="text-info mb-0 fw-medium">&#64;{{ usernameLogueado }}</p>
+        </div>
+
+        <div class="card-body p-4 p-md-5">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold text-dark mb-0">Información Personal</h5>
+            
+            <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3" (click)="toggleEdit()">
+              <i class="bi" [ngClass]="isEditing ? 'bi-x-circle-fill me-1' : 'bi-pencil-square me-1'"></i>
+              {{ isEditing ? 'Cancelar' : 'Editar Perfil' }}
+            </button>
+          </div>
+
+          <form [formGroup]="perfilForm" (ngSubmit)="guardarCambios()">
+            <div class="row g-3">
+              
+              <div class="col-md-6">
+                <label class="form-label small fw-bold text-muted text-uppercase">Primer Nombre</label>
+                <input type="text" class="form-control custom-input text-capitalize" formControlName="primer_nombre">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label small fw-bold text-muted text-uppercase">Segundo Nombre</label>
+                <input type="text" class="form-control custom-input text-capitalize" formControlName="segundo_nombre">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label small fw-bold text-muted text-uppercase">Primer Apellido</label>
+                <input type="text" class="form-control custom-input text-capitalize" formControlName="primer_apellido">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label small fw-bold text-muted text-uppercase">Segundo Apellido</label>
+                <input type="text" class="form-control custom-input text-capitalize" formControlName="segundo_apellido">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label small fw-bold text-muted text-uppercase">Cédula de Identidad</label>
+                <input type="text" class="form-control custom-input" formControlName="cedula">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label small fw-bold text-muted text-uppercase">Teléfono Móvil</label>
+                <input type="text" class="form-control custom-input" formControlName="telefono">
+              </div>
+
+            </div>
+
+            <div class="text-end mt-4" *ngIf="isEditing">
+              <button type="submit" class="btn btn-info text-dark fw-bold px-5 rounded-pill shadow-sm" [disabled]="perfilForm.invalid || loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+                Guardar Cambios
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
