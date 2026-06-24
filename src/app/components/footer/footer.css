@@ -1,21 +1,141 @@
-footer {
-  background-color: #1a1a1a; /* Un negro un poco más suave que el puro */
-  border-top: 3px solid #0dcaf0; /* Línea de color info arriba */
+/* --- Estilos para las tarjetas del Footer --- */
+.cards-container {
+  display: flex;
+  gap: 15px;
 }
 
-footer p {
-  line-height: 1.7;
-  color: #bbb;
+.member-card {
+  background-color: #1e2530; /* Fondo oscuro similar al de tus capturas */
+  border: 1px solid #2d3748;
+  border-radius: 8px;
+  padding: 12px;
+  width: 110px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-footer a {
-  transition: color 0.3s ease;
+.member-card:hover {
+  transform: translateY(-4px);
+  border-color: #00adef; /* Color azul brillante de Fullday Vzla */
 }
 
-footer a:hover {
-  color: #0dcaf0 !important;
+.avatar-container {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 8px auto;
+  border-radius: 50%; /* Esto hace la foto perfectamente redonda */
+  overflow: hidden;
+  border: 2px solid #2d3748;
 }
 
-.bi {
-  vertical-align: middle;
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Evita que la foto de la cara se deforme */
+}
+
+.member-name {
+  color: #e2e8f0;
+  font-size: 11px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Si el nombre es muy largo añade "..." */
+}
+
+/* --- Estilos del Cuadro Emergente (Modal) --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75); /* Fondo oscuro transparente detrás del cuadro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Asegura que esté por encima de todo */
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+  background-color: #151b26; /* Fondo del recuadro */
+  border: 2px solid #00adef;
+  border-radius: 16px;
+  padding: 24px;
+  width: 90%;
+  max-width: 320px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  animation: scaleUp 0.2s ease-out;
+}
+
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #a0aec0;
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close-button:hover {
+  color: #fff;
+}
+
+.modal-title {
+  color: #fff;
+  margin: 0 0 4px 0;
+  font-size: 18px;
+}
+
+.modal-subtitle {
+  color: #00adef;
+  margin: 0 0 16px 0;
+  font-size: 13px;
+}
+
+.modal-qr-container {
+  background-color: #fff; /* Fondo blanco para que el QR se escanee perfectamente */
+  padding: 16px; /* Padding uniforme y limpio por los 4 lados */
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 12px;
+  width: 100%;
+  max-width: 250px;     /* Controla el tamaño general aquí */
+  aspect-ratio: 1 / 1;  /* Relación de aspecto 1:1 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem auto;
+}
+
+
+.modal-qr-img {
+  width: 180px;
+  height: 180px;
+  display: block;
+  object-fit: contain; /* Asegura que el QR no se estire ni se deforme */
+}
+
+.modal-footer-text {
+  color: #718096;
+  font-size: 12px;
+  margin: 0;
+}
+
+/* --- Animaciones de transición --- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }

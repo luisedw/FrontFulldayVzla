@@ -1,5 +1,6 @@
 <footer class="bg-dark text-white pt-5 pb-4 mt-5">
   <div class="container text-center text-md-start">
+    
     <div class="row text-center text-md-start">
       
       <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
@@ -28,15 +29,68 @@
 
     </div>
 
-    <hr class="mb-4">
+    <hr class="border-secondary my-4">
+
+    <div class="row align-items-start text-center text-md-start g-4">
+      
+      <div class="col-lg-9 col-md-12">
+        <h6 class="text-uppercase mb-3 fw-bold text-info tracking-wider small text-center text-md-start">
+          Equipo de Desarrollo
+        </h6>
+        <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-md-start">
+          @for (integrante of integrantes; track integrante.nombre) {
+            <div class="qr-card" (click)="abrirQr(integrante)">
+              <div class="avatar-container">
+                <img [src]="integrante.foto" [alt]="'Foto de ' + integrante.nombre" class="avatar-img">
+              </div>
+              <span class="qr-name">{{ integrante.nombre }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-12 text-center text-lg-end">
+        <h6 class="text-uppercase mb-3 fw-bold text-info tracking-wider small text-center text-lg-end">
+          Evaluación / Docente
+        </h6>
+        <div class="d-flex justify-content-center justify-content-lg-end">
+          <div class="qr-card teacher-card" (click)="abrirQr(profesor)">
+            <div class="avatar-container">
+              <img [src]="profesor.foto" [alt]="'Foto de ' + profesor.nombre" class="avatar-img">
+            </div>
+            <span class="qr-name">{{ profesor.nombre }}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <hr class="mb-4 mt-4">
 
     <div class="row align-items-center">
       <div class="col-md-12 text-center">
-        <p class="small">
-          © 2024 Todos los derechos reservados por:
+        <p class="small mb-0">
+          © 2026 Todos los derechos reservados por:
           <a href="#" class="text-info text-decoration-none"><strong>Fullday Vzla</strong></a>
         </p>
       </div>
     </div>
+
   </div>
+
+  @if (miembroSeleccionado) {
+    <div class="modal-overlay" (click)="cerrarQr()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="close-button" (click)="cerrarQr()">&times;</button>
+        
+        <h3 class="modal-title">{{ miembroSeleccionado.nombre }}</h3>
+        <p class="modal-subtitle">{{ miembroSeleccionado.rol || 'Integrante' }}</p>
+        
+        <div class="modal-qr-container">
+          <img [src]="miembroSeleccionado.qr" alt="Código QR" class="modal-qr-img">
+        </div>
+        <p class="modal-footer-text">Escanea para ver el perfil o evaluación</p>
+      </div>
+    </div>
+  }
 </footer>
