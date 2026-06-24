@@ -1,0 +1,101 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      
+      <div class="card shadow-lg border-0 bg-dark text-white rounded-4">
+        
+        <div class="card-header border-secondary bg-transparent py-4 px-4">
+          <h3 class="mb-1 text-info fw-bold">
+            <i class="bi bi-plus-circle-fill me-2"></i>Registrar Paquete Turístico
+          </h3>
+          <p class="text-muted mb-0 small">Rellena los datos para desplegar la nueva promoción en la pantalla principal.</p>
+        </div>
+
+        <div class="card-body p-4">
+          <form [formGroup]="paqueteForm" (ngSubmit)="guardarPaquete()">
+            
+            <div class="row g-3">
+              
+              <div class="col-12">
+                <label class="form-label text-white-50 fw-semibold">Nombre del Paquete</label>
+                <input type="text" 
+                       class="form-control bg-secondary text-white border-0 custom-input" 
+                       placeholder="Ej. Tour Centro Histórico de Cartagena V6"
+                       formControlName="nombre_paquete_turistico"
+                       [ngClass]="{'is-invalid': paqueteForm.get('nombre_paquete_turistico')?.touched && paqueteForm.get('nombre_paquete_turistico')?.invalid}">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label text-white-50 fw-semibold">Destino Geográfico</label>
+                <select class="form-select bg-secondary text-white border-0 custom-input" 
+                        formControlName="destino_id"
+                        [ngClass]="{'is-invalid': paqueteForm.get('destino_id')?.touched && paqueteForm.get('destino_id')?.invalid}">
+                  <option value="" disabled selected>Selecciona un destino...</option>
+                  @for (dst of destinos; track dst.id) {
+                    <option [value]="dst.id">{{ dst.nombre }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label text-white-50 fw-semibold">Tipo de Plan / Categoría</label>
+                <select class="form-select bg-secondary text-white border-0 custom-input" 
+                        formControlName="tipo_paquete_id"
+                        [ngClass]="{'is-invalid': paqueteForm.get('tipo_paquete_id')?.touched && paqueteForm.get('tipo_paquete_id')?.invalid}">
+                  <option value="" disabled selected>Selecciona la categoría...</option>
+                  @for (tipo of tiposPaquete; track tipo.id) {
+                    <option [value]="tipo.id">{{ tipo.nombre }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label text-white-50 fw-semibold">Duración (Días)</label>
+                <input type="number" class="form-control bg-secondary text-white border-0 custom-input" 
+                       placeholder="Ej. 4" formControlName="duracion_dias">
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label text-white-50 fw-semibold">Capacidad Máx. Personas</label>
+                <input type="number" class="form-control bg-secondary text-white border-0 custom-input" 
+                       placeholder="Ej. 20" formControlName="capacidad_maxima_integrantes">
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label text-white-50 fw-semibold">Precio Base (Bs.)</label>
+                <input type="number" step="0.01" class="form-control bg-secondary text-white border-0 custom-input" 
+                       placeholder="Ej. 17170.21" formControlName="precio_base_bs">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label text-white-50 fw-semibold">Fecha de Inicio del Viaje</label>
+                <input type="date" class="form-control bg-secondary text-white border-0 custom-input" 
+                       formControlName="fecha_inicio_raw">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label text-white-50 fw-semibold">Fecha de Cierre del Viaje</label>
+                <input type="date" class="form-control bg-secondary text-white border-0 custom-input" 
+                       formControlName="fecha_fin_raw">
+              </div>
+
+            </div>
+
+            <div class="mt-4 pt-3 border-top border-secondary d-flex justify-content-end gap-2">
+              <button type="button" class="btn btn-outline-light rounded-pill px-4" [disabled]="enviando">Cancelar</button>
+              <button type="submit" class="btn btn-info text-dark fw-bold rounded-pill px-4" [disabled]="enviando">
+                @if (enviando) {
+                  <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Guardando...
+                } @else {
+                  <i class="bi bi-cloud-arrow-up-fill me-2"></i>Publicar Paquete
+                }
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

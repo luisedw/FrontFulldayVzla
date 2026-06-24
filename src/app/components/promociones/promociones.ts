@@ -32,11 +32,11 @@ export class PromocionesComponent implements OnInit {
       }
     });
   }
-
-  getFormatedImage(url: string): string {
-    if (url.includes('paquete_placeholder.jpg') || !url) {
-      return 'assets/img/CayoSombrero.jpg';
-    }
-    return `http://127.0.0.1:8000${url}`; 
+getFormatedImage(url: string | null): string {
+  // 🔍 Primero validamos si es null, undefined o vacío; si no, evaluamos el placeholder
+  if (!url || url.includes('paquete_placeholder.jpg')) {
+    return 'assets/img/CayoSombrero.jpg';
   }
+  return `http://127.0.0.1:8000${url}`; 
+}
 }
