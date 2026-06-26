@@ -1,14 +1,39 @@
-/* src/app/components/destinos/destinos.component.css */
+/* Contenedor envolvente para generar contraste con las tarjetas blancas */
+.destinos-section {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
 
+/* Modales */
 .modal {
-  z-index: 1060 !important; /* Por encima del Navbar que suele tener 1030 o 1050 */
+  z-index: 1060 !important;
 }
 
 .modal-dialog {
   max-width: 750px;
 }
 
-/* Efecto de justificación limpio para las descripciones largas */
 .text-justify {
   text-align: justify;
+}
+
+/* 💡 Efecto pulido de tarjetas sobre fondo claro */
+.custom-card-effect {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important; /* Bordes suaves */
+}
+
+.custom-card-effect:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important; /* Sombra pronunciada en Hover */
+}
+
+/* Forzar que los textos largos no desalinien los botones del footer */
+.card-text {
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3; /* Corta el texto a 3 líneas máximo con puntos suspensivos */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.5;
 }

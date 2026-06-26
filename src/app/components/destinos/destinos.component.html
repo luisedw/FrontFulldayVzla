@@ -1,36 +1,44 @@
-<div class="destinos-container container my-5">
-  <h2 class="text-white mb-4 fw-bold">Explora Nuestros Destinos</h2>
+<div class="destinos-section py-5">
+  <div class="destinos-container container">
+    
+    <div class="mb-5 text-start border-start border-info border-4 ps-3">
+      <h2 class="text-dark mb-1 fw-bold display-6">¡Viaja hoy, colecciona recuerdos para siempre!</h2>
+      <p class="text-muted fs-5 mb-0 fw-medium"> Tu proxima aventura te espera</p>
+    </div>
 
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    @for (destino of listaDestinos; track destino.id) {
-      <div class="col">
-        <div class="card h-100 bg-white text-dark border-0 shadow-sm rounded-3 overflow-hidden">
-          
-          <img [src]="destino.imagen_url || 'assets/img/caracas.jpg'" 
-               class="card-img-top" 
-               [alt]="destino.nombre"
-               style="height: 220px; object-fit: cover;">
-          
-          <div class="card-body">
-            <span class="badge bg-info text-white mb-2 px-2 py-1 rounded-pill small fw-semibold">
-              {{ destino.ciudad.nombre }}, {{ destino.pais.nombre }}
-            </span>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      @for (destino of listaDestinos; track destino.id) {
+        <div class="col">
+          <div class="card h-100 bg-white text-dark border-0 shadow-sm rounded-3 overflow-hidden custom-card-effect">
             
-            <h5 class="card-title fw-bold text-dark mb-2">{{ destino.nombre }}</h5>
+            <img [src]="destino.imagen_url || 'assets/img/caracas.jpg'" 
+                 class="card-img-top" 
+                 [alt]="destino.nombre"
+                 style="height: 220px; object-fit: cover;">
             
-            <p class="card-text text-muted small">
-              {{ destino.descripcion || 'Explora este increíble destino turístico con todo incluido.' }}
-            </p>
-          </div>
-          
-          <div class="card-footer bg-transparent border-0 pt-0 pb-3">
-            <button class="btn btn-outline-primary w-100 rounded-pill fw-semibold" (click)="abrirModal(destino)">
-              Ver Detalles
-            </button>
+            <div class="card-body d-flex flex-column">
+              <div class="mb-2">
+                <span class="badge bg-info text-white px-2 py-1 rounded-pill small fw-semibold">
+                  {{ destino.ciudad.nombre }}, {{ destino.pais.nombre }}
+                </span>
+              </div>
+              
+              <h5 class="card-title fw-bold text-dark mb-2">{{ destino.nombre }}</h5>
+              
+              <p class="card-text text-secondary small flex-grow-1">
+                {{ destino.descripcion || 'Explora este increíble destino turístico con todo incluido.' }}
+              </p>
+            </div>
+            
+            <div class="card-footer bg-transparent border-0 pt-0 pb-3">
+              <button class="btn btn-outline-primary w-100 rounded-pill fw-semibold shadow-sm" (click)="abrirModal(destino)">
+                Ver Detalles
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    }
+      }
+    </div>
   </div>
 </div>
 
@@ -94,7 +102,6 @@
 
         <div class="modal-footer border-secondary">
           <button type="button" class="btn btn-secondary rounded-pill px-3" (click)="cerrarModal()">Cerrar</button>
-          
           <button type="button" class="btn btn-info text-dark rounded-pill px-4 fw-bold" (click)="irAReservar(destinoSeleccionado.id)">
             <i class="bi bi-calendar-check-fill me-1"></i> Reservar Tour
           </button>

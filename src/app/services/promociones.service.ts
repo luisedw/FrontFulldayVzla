@@ -7,11 +7,21 @@ import { Observable } from 'rxjs';
 })
 export class PromocionesService {
   private apiUrl = 'http://127.0.0.1:8000/api/paquetes-turisticos/';
+  private tiposUrl = 'http://127.0.0.1:8000/api/tipos-paquetes/'; 
 
   constructor(private http: HttpClient) { }
 
-  // Obtiene todos los paquetes turísticos de la API
   getPaquetes(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
+  }
+
+  // 🆕 Obtener tipos de paquetes reales de la base de datos
+  getTiposPaquetes(): Observable<any> {
+    return this.http.get<any>(this.tiposUrl);
+  }
+
+  // 🆕 Crear paquete turístico por POST
+  crearPaquete(payload: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, payload);
   }
 }

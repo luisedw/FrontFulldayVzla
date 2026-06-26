@@ -1,3 +1,4 @@
+/* Contenedor Base de Tarjeta */
 .custom-card-admin {
   background-color: #111b24 !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
@@ -11,14 +12,16 @@
   background-color: #172431 !important;
 }
 
+/* Campos de Formulario Unificados */
 .custom-input, .custom-select, .custom-input-textarea {
   background-color: #1a252f !important;
   border: 1px solid #2c3e50 !important;
   color: #fff !important;
+  border-radius: 8px !important;
+  padding: 0.6rem 0.75rem;
 }
 
 .custom-input-textarea {
-  border-radius: 8px !important;
   resize: none;
 }
 
@@ -30,11 +33,15 @@
 }
 
 .custom-select {
-  border-radius: 8px !important;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
 }
 
-/* Diseños del Dropzone e Imagen */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+/* Estilos de Zona Dropzone */
 .dropzone-area {
   border: 2px dashed #243547;
   background-color: #141f29;
@@ -61,12 +68,55 @@
   background: linear-gradient(transparent, rgba(17, 27, 36, 0.95));
 }
 
-.btn-submit-destino {
-  transition: all 0.3s ease;
-}
-
 .btn-submit-destino:hover:not(:disabled) {
   background-color: #0baccc !important;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(13, 202, 240, 0.4);
+}
+
+/* ================= 🆕 ESTILOS DEL STEPPER INDICIADOR ================= */
+.stepper-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.step-circle {
+  width: 45px;
+  height: 45px;
+  background-color: #1a252f;
+  border: 2px solid #2c3e50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6c757d;
+  font-size: 1.2rem;
+  transition: all 0.4s ease;
+}
+
+.step-label {
+  color: #6c757d;
+  transition: all 0.4s ease;
+}
+
+.step-divider {
+  height: 3px;
+  background-color: #2c3e50;
+  transition: all 0.4s ease;
+}
+
+/* Estados Activos del Stepper */
+.step-active .step-circle {
+  background-color: #111b24;
+  border-color: #0dcaf0;
+  color: #0dcaf0;
+  box-shadow: 0 0 12px rgba(13, 202, 240, 0.3) !important;
+}
+
+.step-active .step-label {
+  color: #fff;
+}
+
+.divider-active {
+  background-color: #0dcaf0;
 }

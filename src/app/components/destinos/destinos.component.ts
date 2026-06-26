@@ -11,14 +11,17 @@ import { Router } from '@angular/router';
   styleUrl: './destinos.component.css'
 })
 export class DestinosComponent implements OnInit {
+  
   // Angular inyectará automáticamente aquí el valor si el usuario usó el cintillo
   @Input() set buscar(value: string) {
-    if (value) {
-      this.filtrarDestinosPorTexto(value);
-    }
+    this.filtrarDestinosPorTexto(value);
   }
 
   listaDestinos: Destino[] = [];
+  destinosOriginales: Destino[] = []; // Copia maestra para búsquedas seguras
+
+  // URL base de tu servidor de Django
+  private readonly URL_BACKEND = 'http://127.0.0.1:8000';
 
   // Guardará el destino activo para el modal. Si es null, el modal estará oculto.
   destinoSeleccionado: Destino | null = null;
@@ -29,22 +32,35 @@ export class DestinosComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Al cargar la vista, llamamos al backend (usando el interceptor que configuramos)
+    // Al cargar la vista, llamamos al backend
     this.destinoService.getDestinos().subscribe({
       next: (response: ApiResponse<Destino[]>) => {
-        this.listaDestinos = response.data;
+        const backendData = response.data || response;
+
+        // 💡 FILTRO: Dejamos pasar TODOS los destinos que tengan imagen válida
+        const destinosValidos = backendData.filter((item: any) => 
+          item.imagen_principal !== null && 
+          item.imagen_principal !== undefined &&
+          !item.imagen_principal.includes('placeholder')
+        );
+
+        // 💡 MAPEADO: Construimos el objeto inyectando la URL absoluta de Django
+        this.destinosOriginales = destinosValidos.map((item: any) => ({
+          ...item, // Conservamos todos los campos originales del backend (ciudad, pais, etc.)
+          imagen_url: `${this.URL_BACKEND}${item.imagen_principal}` // Seteamos la URL correcta
+        }));
+
+        // Renderizamos toda la lista completa sin límites
+        this.listaDestinos = [...this.destinosOriginales];
       },
       error: (err) => {
         console.error('Error al conectar con Django:', err);
-        }
+      }
     });
   }
 
-  // 💡 3. Crea la función para redirigir
   irAReservar(id: number) {
-    // Si usas una variable booleana para cerrar tu modal, apágala aquí
-    // Ej: this.mostrarModal = false; 
-    
+    this.cerrarModal();
     // Navegamos a la ruta del tour detallado pasando el ID
     this.router.navigate(['/tour', id]);
   }
@@ -53,11 +69,25 @@ export class DestinosComponent implements OnInit {
   abrirModal(destino: Destino) {
     this.destinoSeleccionado = destino;
   }
+  
   cerrarModal() {
     this.destinoSeleccionado = null;
   }
 
+  // 💡 Lógica reactiva para el buscador del cintillo / input
   filtrarDestinosPorTexto(texto: string) {
-    // Lógica para filtrar la lista basándote en la ciudad, país o nombre
+    if (!texto || texto.trim() === '') {
+      this.listaDestinos = [...this.destinosOriginales];
+      return;
+    }
+
+    const busqueda = texto.toLowerCase().trim();
+
+    // Filtramos dinámicamente buscando coincidencias en nombre, ciudad o descripción
+    this.listaDestinos = this.destinosOriginales.filter(destino => 
+      destino.nombre.toLowerCase().includes(busqueda) ||
+      destino.ciudad?.nombre.toLowerCase().includes(busqueda) ||
+      destino.descripcion?.toLowerCase().includes(busqueda)
+    );
   }
 }
