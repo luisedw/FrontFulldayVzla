@@ -1,0 +1,72 @@
+.custom-card-admin {
+  background-color: #111b24 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+.border-secondary-dim {
+  border-bottom: 1px solid #243547 !important;
+}
+
+.bg-secondary-dark {
+  background-color: #172431 !important;
+}
+
+.custom-input, .custom-select, .custom-input-textarea {
+  background-color: #1a252f !important;
+  border: 1px solid #2c3e50 !important;
+  color: #fff !important;
+}
+
+.custom-input-textarea {
+  border-radius: 8px !important;
+  resize: none;
+}
+
+.custom-input:focus, .custom-select:focus, .custom-input-textarea:focus {
+  border-color: #0dcaf0 !important;
+  box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25) !important;
+  background-color: #1a252f !important;
+  color: #fff !important;
+}
+
+.custom-select {
+  border-radius: 8px !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+/* Diseños del Dropzone e Imagen */
+.dropzone-area {
+  border: 2px dashed #243547;
+  background-color: #141f29;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dropzone-area:hover {
+  border-color: #0dcaf0;
+  background-color: #172431;
+}
+
+.img-preview-fluid {
+  max-height: 250px;
+  object-fit: cover;
+}
+
+.preview-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(17, 27, 36, 0.95));
+}
+
+.btn-submit-destino {
+  transition: all 0.3s ease;
+}
+
+.btn-submit-destino:hover:not(:disabled) {
+  background-color: #0baccc !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(13, 202, 240, 0.4);
+}

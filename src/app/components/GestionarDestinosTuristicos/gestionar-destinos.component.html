@@ -1,0 +1,119 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-9 col-lg-7">
+      
+      <div class="card bg-dark text-white shadow-lg border-0 rounded-4 custom-card-admin">
+        <div class="card-header border-bottom border-secondary-dim py-4 px-4 text-center">
+          <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+            <i class="bi bi-geo-alt-fill text-info fs-3"></i>
+            <h3 class="fw-bold m-0 text-white">Registrar Nuevo Destino</h3>
+          </div>
+          <p class="text-muted small m-0">Completa los campos e incorpora imágenes para el destino turístico</p>
+        </div>
+
+        <div class="card-body p-4">
+          
+          <div *ngIf="mensajeAlerta" class="alert alert-dismissible fade show" [ngClass]="'alert-' + tipoAlerta" role="alert">
+            <i class="bi" [ngClass]="tipoAlerta === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill'"></i>
+            <span class="ms-2">{{ mensajeAlerta }}</span>
+            <button type="button" class="btn-close" (click)="mensajeAlerta = null" aria-label="Close"></button>
+          </div>
+
+          <form [formGroup]="destinoForm" (ngSubmit)="onSubmit()" novalidate>
+            
+            <div class="mb-4">
+              <label for="nombre_destino_turistico" class="form-label fw-semibold text-white-50">Nombre del Destino</label>
+              <div class="input-group">
+                <span class="input-group-text bg-secondary-dark border-0 text-info"><i class="bi bi-tag"></i></span>
+                <input type="text" id="nombre_destino_turistico" formControlName="nombre_destino_turistico"
+                       class="form-control custom-input" placeholder="Ej. Morrocoy"
+                       [ngClass]="{'is-invalid': destinoForm.get('nombre_destino_turistico')?.touched && destinoForm.get('nombre_destino_turistico')?.invalid}">
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label for="descripcion" class="form-label fw-semibold text-white-50">Descripción Breve</label>
+              <textarea id="descripcion" formControlName="descripcion" rows="3"
+                        class="form-control custom-input-textarea" placeholder="Describe los atractivos principales de este destino..."
+                        [ngClass]="{'is-invalid': destinoForm.get('descripcion')?.touched && destinoForm.get('descripcion')?.invalid}"></textarea>
+              <div class="invalid-feedback">La descripción debe tener al menos 10 caracteres.</div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <label for="pais_id" class="form-label fw-semibold text-white-50">País</label>
+                <select id="pais_id" formControlName="pais_id" class="form-select custom-select"
+                        [ngClass]="{'is-invalid': destinoForm.get('pais_id')?.touched && destinoForm.get('pais_id')?.invalid}">
+                  <option value="" disabled selected>Selecciona un país...</option>
+                  <option *ngFor="let pais of paises" [value]="pais.id">{{ pais.nombre }}</option>
+                </select>
+              </div>
+
+              <div class="col-md-6 mb-4">
+                <label for="ciudad_id" class="form-label fw-semibold text-white-50">Ciudad</label>
+                <select id="ciudad_id" formControlName="ciudad_id" class="form-select custom-select"
+                        [ngClass]="{'is-invalid': destinoForm.get('ciudad_id')?.touched && destinoForm.get('ciudad_id')?.invalid}">
+                  <option value="" disabled selected>
+                    {{ destinoForm.get('pais_id')?.value ? 'Selecciona una ciudad...' : 'Elige un país primero' }}
+                  </option>
+                  <option *ngFor="let ciudad of ciudadesFiltradas" [value]="ciudad.id">{{ ciudad.nombre }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <label for="idioma_id" class="form-label fw-semibold text-white-50">Idioma</label>
+                <select id="idioma_id" formControlName="idioma_id" class="form-select custom-select">
+                  <option value="" disabled selected>Selecciona un idioma...</option>
+                  <option *ngFor="let idioma of idiomas" [value]="idioma.id">{{ idioma.nombre }}</option>
+                </select>
+              </div>
+
+              <div class="col-md-6 mb-4">
+                <label for="moneda_id" class="form-label fw-semibold text-white-50">Moneda</label>
+                <select id="moneda_id" formControlName="moneda_id" class="form-select custom-select">
+                  <option value="" disabled selected>Selecciona una moneda...</option>
+                  <option *ngFor="let moneda of monedas" [value]="moneda.id">{{ moneda.nombre }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-semibold text-white-50">Imagen de Portada</label>
+              
+              <div class="upload-zone-container">
+                <div *ngIf="!imagenPreview" class="dropzone-area p-4 text-center" (click)="fileInput.click()">
+                  <i class="bi bi-cloud-arrow-up text-info display-5 mb-2 d-block"></i>
+                  <span class="d-block fw-medium text-white-50">Arrastra tu imagen aquí o haz clic para buscar</span>
+                  <small class="text-muted">Formatos soportados: JPG, PNG (Max 5MB)</small>
+                </div>
+
+                <div *ngIf="imagenPreview" class="preview-frame position-relative rounded-3 overflow-hidden border border-secondary">
+                  <img [src]="imagenPreview" alt="Preview del Destino" class="w-100 img-preview-fluid">
+                  <div class="preview-overlay d-flex align-items-center justify-content-between p-3">
+                    <span class="small text-truncate text-white-50"><i class="bi bi-image me-2"></i>{{ selectedFile?.name }}</span>
+                    <button type="button" class="btn btn-danger btn-sm rounded-pill px-3" (click)="removeImage()">
+                      <i class="bi bi-trash me-1"></i> Quitar
+                    </button>
+                  </div>
+                </div>
+
+                <input type="file" id="fileInput" #fileInput class="d-none" accept="image/*" (change)="onFileSelected($event)">
+              </div>
+            </div>
+
+            <div class="d-grid gap-2 pt-3">
+              <button type="submit" [disabled]="enviando" class="btn btn-info text-dark fw-bold rounded-pill py-2.5 btn-submit-destino">
+                <span *ngIf="enviando" class="spinner-border spinner-border-sm me-2" role="status"></span>
+                {{ enviando ? 'Guardando...' : 'Guardar Destino Turístico' }}
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
