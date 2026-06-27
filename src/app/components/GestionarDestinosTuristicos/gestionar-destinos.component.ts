@@ -30,9 +30,14 @@ export class GestionarDestinosComponent implements OnInit {
   tiposPaquete: any[] = [];
   nombreDestinoCreado: string = ''; // Para mostrar feedback visual en el paso 2
 
-  // Propiedades para la carga de imágenes
+// Propiedades para la carga de imágenes
   selectedFile: File | null = null;
+  selectedFile2: File | null = null;
   imagenPreview: string | null = null;
+  imagenPreview2: string | null = null;
+// Estados visuales para el Drag & Drop (cambiar clases CSS al arrastrar)
+  isDragOver: boolean = false;
+  isDragOver2: boolean = false;
 
   // Estados globales de carga
   enviando: boolean = false;
@@ -66,15 +71,16 @@ export class GestionarDestinosComponent implements OnInit {
 
   private initFormPaquete(): void {
     this.paqueteForm = this.fb.group({
-      nombre_paquete_turistico: ['', [Validators.required, Validators.minLength(3)]],
-      destino_id: ['', Validators.required], // Se llenará y bloqueará automáticamente
-      tipo_paquete_id: ['', Validators.required],
-      duracion_dias: ['', [Validators.required, Validators.min(1)]],
-      precio_base_bs: ['', [Validators.required, Validators.min(0.01)]],
-      capacidad_maxima_integrantes: ['', [Validators.required, Validators.min(1)]],
-      fecha_inicio_raw: ['', Validators.required], 
-      fecha_fin_raw: ['', Validators.required]     
-    });
+    nombre_paquete_turistico: ['', [Validators.required, Validators.minLength(3)]],
+    destino_id: ['', Validators.required],
+    tipo_paquete_id: ['', Validators.required],
+    duracion_dias: ['', [Validators.required, Validators.min(1)]],
+    precio_base_bs: ['', [Validators.required, Validators.min(0.01)]],
+    capacidad_maxima_integrantes: ['', [Validators.required, Validators.min(1)]],
+    fecha_inicio_raw: ['', Validators.required], 
+    fecha_fin_raw: ['', Validators.required],
+    descripcion: ['', [Validators.required, Validators.minLength(10)]] 
+  });
   }
 
   private escucharCambioPais(): void {
@@ -106,14 +112,43 @@ export class GestionarDestinosComponent implements OnInit {
     });
   }
 
-  // Captura y preview de imagen
+// ================= LÓGICA DE ARCHIVOS E IMÁGENES =================
+
+  // --- PASO 1: Destino ---
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
-      this.selectedFile = file;
-      const reader = new FileReader();
-      reader.onload = () => this.imagenPreview = reader.result as string;
-      reader.readAsDataURL(file);
+      this.procesarImagenDestino(file);
+    }
+  }
+  private procesarImagenDestino(file: File): void {
+    this.selectedFile = file;
+    const reader = new FileReader();
+    reader.onload = () => this.imagenPreview = reader.result as string;
+    reader.readAsDataURL(file);
+  }
+
+  // Drag & Drop Paso 1
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver = true;
+  }
+
+  onDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver = false;
+  }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver = false;
+
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      this.procesarImagenDestino(files[0]);
     }
   }
 
@@ -124,11 +159,60 @@ export class GestionarDestinosComponent implements OnInit {
     if (fileInput) fileInput.value = '';
   }
 
+  // --- PASO 2: Paquete ---
+  onFileSelected2(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.procesarImagenPaquete(file);
+    }
+  }
+
+private procesarImagenPaquete(file: File): void {
+    this.selectedFile2 = file;
+    const reader = new FileReader();
+    reader.onload = () => this.imagenPreview2 = reader.result as string;
+    reader.readAsDataURL(file);
+  }
+
+  // Drag & Drop Paso 2
+  onDragOver2(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver2 = true;
+  }
+
+  onDragLeave2(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver2 = false;
+  }
+
+  onDrop2(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDragOver2 = false;
+
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      this.procesarImagenPaquete(files[0]);
+    }
+  }
+
+  removeImage2(): void {
+    this.selectedFile2 = null;
+    this.imagenPreview2 = null;
+    const fileInput2 = document.getElementById('fileInput2') as HTMLInputElement;
+    if (fileInput2) fileInput2.value = '';
+  }
+
+  
   formatearFecha(fechaInput: string): string {
     if (!fechaInput) return '';
     const [year, month, day] = fechaInput.split('-');
     return `${day}/${month}/${year}`;
   }
+
+
 
   // ================= SUBMITS DEL ASISTENTE =================
 
@@ -201,7 +285,24 @@ export class GestionarDestinosComponent implements OnInit {
       fecha_fin: this.formatearFecha(formValues.fecha_fin_raw)       
     };
 
-    this.promocionesService.crearPaquete(payload).subscribe({
+// Cambiamos a FormData para poder enviar la imagen del paquete
+  const formData = new FormData();
+  formData.append('nombre_paquete_turistico', formValues.nombre_paquete_turistico);
+  formData.append('destino_id', String(formValues.destino_id));
+  formData.append('tipo_paquete_id', String(formValues.tipo_paquete_id));
+  formData.append('duracion_dias', String(formValues.duracion_dias));
+  formData.append('precio_base_bs', String(formValues.precio_base_bs));
+  formData.append('capacidad_maxima_integrantes', String(formValues.capacidad_maxima_integrantes));
+  formData.append('fecha_inico', this.formatearFecha(formValues.fecha_inicio_raw));
+  formData.append('fecha_fin', this.formatearFecha(formValues.fecha_fin_raw));
+  formData.append('descripcion', formValues.descripcion); // <-- Enviamos la descripción
+
+  if (this.selectedFile2) {
+    formData.append('imagen_principal', this.selectedFile2, this.selectedFile2.name);
+  }
+
+
+    this.promocionesService.crearPaquete(formData).subscribe({
       next: (response: any) => {
         this.enviando = false;
         this.paqueteForm.reset();

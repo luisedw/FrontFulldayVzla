@@ -1,10 +1,11 @@
 .custom-btn-all {
   transition: all 0.3s ease;
+  border-width: 2px;
 }
 
 .custom-btn-all:hover {
-  background-color: #0dcaf0; /* El color info de Bootstrap */
-  color: #212529 !important; /* Texto oscuro para contraste */
-  transform: translateY(-2px); /* Pequeño salto hacia arriba */
-  box-shadow: 0 4px 12px rgba(13, 202, 240, 0.3) !important;
+  background-color: #0dcaf0; /* Color Info principal corporativo */
+  color: #212529 !important; /* Contraste óptimo oscuro para el texto */
+  transform: translateY(-3px); /* Efecto levitación sutil */
+  box-shadow: 0 6px 16px rgba(13, 202, 240, 0.35) !important;
 }

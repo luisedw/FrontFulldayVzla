@@ -32,7 +32,7 @@
               <i class="bi bi-geo-alt-fill text-info fs-3"></i>
               <h3 class="fw-bold m-0 text-white">Registrar Nuevo Destino</h3>
             </div>
-            <p class="text-muted small m-0">Paso 1: Completa la información de la locación turística base</p>
+            <p class="text-white-50 small m-0">Paso 1: Completa la información de la locación turística base</p>
           </div>
 
           <div class="card-body p-4">
@@ -97,11 +97,18 @@
               </div>
 
               <div class="mb-4">
-                <label class="form-label fw-semibold text-white-50">Imagen de Portada</label>
+                <label class="form-label fw-semibold text-white-50">Imagen de Portada del Destino</label>
                 <div class="upload-zone-container">
-                  <div *ngIf="!imagenPreview" class="dropzone-area p-4 text-center" (click)="fileInput.click()">
+                  <div *ngIf="!imagenPreview" 
+                       class="dropzone-area p-4 text-center" 
+                       [class.dragover]="isDragOver"
+                       (dragover)="onDragOver($event)"
+                       (dragleave)="onDragLeave($event)"
+                       (drop)="onDrop($event)"
+                       (click)="fileInput.click()">
                     <i class="bi bi-cloud-arrow-up text-info display-5 mb-2 d-block"></i>
                     <span class="d-block fw-medium text-white-50">Arrastra tu imagen aquí o haz clic para buscar</span>
+                    <small class="text-muted">Formatos soportados: JPG, JPEG, PNG, WEBP (Max 5MB)</small>
                   </div>
 
                   <div *ngIf="imagenPreview" class="preview-frame position-relative rounded-3 overflow-hidden border border-secondary">
@@ -131,7 +138,7 @@
               <i class="bi bi-plus-circle-fill text-info fs-3"></i>
               <h3 class="fw-bold m-0 text-white">Registrar Paquete Turístico</h3>
             </div>
-            <p class="text-muted small m-0">Asociando promoción para el destino: <strong class="text-info">{{ nombreDestinoCreado }}</strong></p>
+            <p class="text-white-50 small m-0">Asociando promoción para el destino: <strong class="text-info">{{ nombreDestinoCreado }}</strong></p>
           </div>
 
           <div class="card-body p-4">
@@ -157,9 +164,7 @@
                   <select class="form-select custom-select" formControlName="tipo_paquete_id"
                           [ngClass]="{'is-invalid': paqueteForm.get('tipo_paquete_id')?.touched && paqueteForm.get('tipo_paquete_id')?.invalid}">
                     <option value="" disabled selected>Selecciona la categoría...</option>
-                    @for (tipo of tiposPaquete; track tipo.id) {
-                      <option [value]="tipo.id">{{ tipo.nombre }}</option>
-                    }
+                    <option *ngFor="let tipo of tiposPaquete" [value]="tipo.id">{{ tipo.nombre }}</option>
                   </select>
                 </div>
 
@@ -187,6 +192,41 @@
                   <label class="form-label text-white-50 fw-semibold">Fecha de Finalización</label>
                   <input type="date" class="form-control custom-input" formControlName="fecha_fin_raw">
                 </div>
+
+                <div class="col-12">
+                  <label for="descripcion_paquete" class="form-label fw-semibold text-white-50">Descripción Exclusiva del Paquete</label>
+                  <textarea id="descripcion_paquete" formControlName="descripcion" rows="3"
+                            class="form-control custom-input-textarea" placeholder="Especifica los servicios incluidos, itinerario detallado o políticas de reembolso..."
+                            [ngClass]="{'is-invalid': paqueteForm.get('descripcion')?.touched && paqueteForm.get('descripcion')?.invalid}"></textarea>
+                  <div class="invalid-feedback">La descripción del paquete debe tener al menos 10 caracteres.</div>
+                </div>
+
+                <div class="col-12 mb-2">
+                  <label class="form-label fw-semibold text-white-50">Imagen Promocional del Paquete</label>
+                  <div class="upload-zone-container">
+                    <div *ngIf="!imagenPreview2" 
+                         class="dropzone-area p-4 text-center" 
+                         [class.dragover]="isDragOver2"
+                         (dragover)="onDragOver2($event)"
+                         (dragleave)="onDragLeave2($event)"
+                         (drop)="onDrop2($event)"
+                         (click)="fileInput2.click()">
+                      <i class="bi bi-image-fill text-info display-5 mb-2 d-block"></i>
+                      <span class="d-block fw-medium text-white-50">Arrastra la imagen del paquete aquí o haz clic para buscar</span>
+                      <small class="text-muted">Formatos soportados: JPG, JPEG, PNG, WEBP (Max 5MB)</small>
+                    </div>
+
+                    <div *ngIf="imagenPreview2" class="preview-frame position-relative rounded-3 overflow-hidden border border-secondary">
+                      <img [src]="imagenPreview2" alt="Preview del Paquete" class="w-100 img-preview-fluid">
+                      <div class="preview-overlay d-flex align-items-center justify-content-between p-3">
+                        <span class="small text-truncate text-white-50"><i class="bi bi-image me-2"></i>{{ selectedFile2?.name }}</span>
+                        <button type="button" class="btn btn-danger btn-sm rounded-pill px-3" (click)="removeImage2()">Quitar</button>
+                      </div>
+                    </div>
+                    <input type="file" id="fileInput2" #fileInput2 class="d-none" accept="image/*" (change)="onFileSelected2($event)">
+                  </div>
+                </div>
+
               </div>
 
               <div class="mt-4 pt-3 border-top border-secondary-dim d-flex justify-content-between">
